@@ -1,14 +1,14 @@
 import React, { Component } from "react"
 import * as RN from "react-native"
 import Axios from "axios"
-require('dotenv').config()
+import Config from '../../Config'
 
-const serverURL = process.env.SERVER_HOST_URL
-const backgroundUrl = process.env.BACKGROUND_URL
-const apiKey = process.env.API_KEY
-const urlBase = process.env.URL_BASE
-const urlCampsEndpoint = process.env.URL_CAMPS_ENDPOINT
-const urlParksEndpoint = process.env.URL_PARKS_ENDPOINT
+const serverURL = Config.SERVER_HOST_URL
+const backgroundUrl = Config.BACKGROUND_URL
+const apiKey = Config.API_KEY
+const urlBase = Config.URL_BASE
+const urlCampsEndpoint = Config.URL_CAMPS_ENDPOINT
+const urlParksEndpoint = Config.URL_PARKS_ENDPOINT
 
 const urlEnd = `&api_key=${apiKey}`
 
@@ -28,8 +28,9 @@ export default class ParkDetail extends Component {
 
     componentDidMount = async () => {
         const parkCode = this.props.navigation.getParam('parkCode', 'no-code')
-
+console.log(urlBase + urlParksEndpoint + parkCode + urlEnd)
         const res = await Axios(urlBase + urlParksEndpoint + parkCode + urlEnd)
+        console.log(res.data)
         const data = res.data.data[0]
 
         //checks session status and sets state to conditionally render user actions

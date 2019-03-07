@@ -4,14 +4,13 @@ import Axios from "axios"
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import StateList from '../assets/states'
 import ParkList from "./content/ParkList"
-
-require('dotenv').config()
+import Config from '../Config'
 
 const states = StateList
-const backgroundUrl = process.env.BACKGROUND_URL
-const apiKey = process.env.API_KEY
-const urlBase = process.env.URL_BASE
-const urlParksEndpoint = process.env.URL_PARKS_ENDPOINT
+const backgroundUrl = Config.BACKGROUND_URL
+const apiKey = Config.API_KEY
+const urlBase = Config.URL_BASE
+const urlStateParks = Config.URL_STATE_PARKS
 
 const urlEnd = `&api_key=${apiKey}`
 export default class Home extends React.Component {
@@ -37,7 +36,7 @@ export default class Home extends React.Component {
     }
 
     loadData = async (stateCode) => {
-        const res = await Axios(urlBase + urlParksEndpoint + stateCode + urlEnd)
+        const res = await Axios(urlBase + urlStateParks + stateCode + urlEnd)
         if (res.status === 200) {
             const parkList = res.data.data
             this.setState(prevState => ({

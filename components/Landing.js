@@ -1,8 +1,8 @@
 import React from "react"
 import * as RN from "react-native"
-require('dotenv').config()
+import Config from '../Config'
 
-const backgroundUrl = process.env.BACKGROUND_URL
+const backgroundUrl = Config.BACKGROUND_URL
 
 const Landing = (props) => {
 

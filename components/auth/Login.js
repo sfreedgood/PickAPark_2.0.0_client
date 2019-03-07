@@ -1,10 +1,10 @@
 import React, { Component } from "react"
 import * as RN from "react-native"
 import Axios from "axios"
-require('dotenv').config()
+import Config from '../../Config'
 
-const serverURL = process.env.SERVER_HOST_URL
-const backgroundUrl = process.env.BACKGROUND_URL
+const serverURL = Config.SERVER_HOST_URL
+const backgroundUrl = Config.BACKGROUND_URL
 
 export default class Login extends Component {
     constructor(props) {
