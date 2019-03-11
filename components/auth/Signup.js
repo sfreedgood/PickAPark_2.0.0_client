@@ -24,7 +24,7 @@ export default class Signup extends Component {
             email: this.state.email,
             password: this.state.password,
         }
-        const res = await Axios.post(serverURL + 'signup', user)
+        const res = await Axios.post(serverURL + '/signup', user)
         res.status === 200 && this.setState({submitted: true})
     }
 

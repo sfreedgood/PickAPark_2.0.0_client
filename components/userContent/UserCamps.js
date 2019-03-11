@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import * as RN from "react-native"
 import Axios from "axios"
-import Config from 'react-native-config'
+import Config from '../../Config'
 
 const serverURL = Config.SERVER_HOST_URL
 const backgroundUrl = Config.BACKGROUND_URL
@@ -16,6 +16,7 @@ export default class UserCamps extends Component {
         try{
             const nonsense = await RN.AsyncStorage.multiGet(['token', 'userId'])
             const token = nonsense[0][1]
+            console.log(token)
             const userId = Number(nonsense[1][1])
 
             const res = await Axios.get(serverURL + `/users/${userId}/camps`, {
@@ -76,6 +77,8 @@ export default class UserCamps extends Component {
     }
 
     render() {
+        console.log(serverURL)
+        console.log(backgroundUrl)
         return(
             <RN.SafeAreaView>
                 <RN.ImageBackground 

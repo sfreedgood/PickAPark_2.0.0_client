@@ -22,7 +22,7 @@ export default class Login extends Component {
             email: this.state.email,
             password: this.state.password,
         }
-        const res = await Axios.post(serverURL + `login`, user)
+        const res = await Axios.post(serverURL + `/login`, user)
         const id = res.data.user_id.toString()
         if (res.data.success) {
             await this.setState({userId: res.data.user_id})
