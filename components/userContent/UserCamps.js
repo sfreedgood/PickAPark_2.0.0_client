@@ -32,6 +32,26 @@ export default class UserCamps extends Component {
         }
     }
 
+    componentDidUpdate = async () => {
+        try{
+            const nonsense = await RN.AsyncStorage.multiGet(['token', 'userId'])
+            const token = nonsense[0][1]
+            const userId = Number(nonsense[1][1])
+
+            const res = await Axios.get(serverURL + `/users/${userId}/camps`, {
+                headers: {
+                Authorization: 'Bearer ' + token //the token is a variable which holds the token
+                }
+            })
+            this.setState({
+                loaded: true,
+                data: res.data.userCamps
+            })
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
     renderUserCamps = (campData) => {
         const campList = campData.map((el, key) => {
             return (
@@ -67,9 +87,7 @@ export default class UserCamps extends Component {
                 Authorization: 'Bearer ' + token //the token is a variable which holds the token
                 }
             })
-
             RN.Alert.alert(res.data.message)
-            this.props.navigation.navigate("UserHome") 
         } catch (e) {
             console.log(e)
         }

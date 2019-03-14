@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "PickAPark",
-    "slug": "client",
+    "slug": "pickapark",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -24,6 +24,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "\"Pick A Park is a native mobile app that allows users to find pertinent information about National Parks in their selected area. Pulling data from the National Park Service, registered users can save preferred information to their accounts for future reference.\""
   }
 }
