@@ -7,7 +7,7 @@ import ParkList from "./content/ParkList"
 import Config from '../Config'
 
 const states = StateList
-const backgroundUrl = Config.BACKGROUND_URL
+const backgroundUrl = require("../assets/background.jpg")
 const apiKey = Config.API_KEY
 const urlBase = Config.URL_BASE
 const urlStateParks = Config.URL_STATE_PARKS
@@ -65,9 +65,9 @@ export default class Home extends React.Component {
     return (
         <RN.SafeAreaView style={{flex: 1 }}>
 
-      <RN.View style={styles.container}>
+      {/* <RN.View style={styles.container}> */}
         <RN.ImageBackground 
-            source = {{uri: backgroundUrl}}
+            source = {backgroundUrl}
             style = {styles.backgroundImg} >
             
             <RN.Text 
@@ -92,6 +92,7 @@ export default class Home extends React.Component {
                     padding: 12,
                     borderWidth: 1,
                     borderColor: '#ccc',
+                    backgroundColor: "rgba(200, 200, 200, 0.3)",
                     borderRadius: 5,
                 }}
                 itemStyle={{
@@ -103,7 +104,7 @@ export default class Home extends React.Component {
                     borderRadius: 5,
                 }}
                 itemTextStyle={{ color: '#222' }}
-                itemsContainerStyle={{ maxHeight: 140 }}
+                itemsContainerStyle={{ maxHeight: 200 }}
                 items={states}
                 defaultIndex={2}
                 placeholder="placeholder"
@@ -115,7 +116,7 @@ export default class Home extends React.Component {
                       navigation={this.props.navigation}/>
 
         </RN.ImageBackground>
-      </RN.View>
+      {/* </RN.View> */}
       </RN.SafeAreaView>
 
     );
@@ -123,20 +124,17 @@ export default class Home extends React.Component {
 }
 
 const styles = RN.StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'gray',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
     title: {
-        // marginTop: 20,
-        fontSize: 50,
-        textAlign: "center",
+      fontSize: 50,
+      backgroundColor: "rgba(200, 200, 200, 0.7)",
+      width: RN.Dimensions.get("window").width,
+      textAlign: "center",
+      alignItems: "baseline"
+      // justifyContent: "center"
     },
     backgroundImg: {
-        paddingTop: 25,
-        paddingBottom: 25,
+        // paddingTop: 25,
+        // paddingBottom: 25,
         justifyContent: "flex-start",
         width: RN.Dimensions.get("window").width,
         height: RN.Dimensions.get("window").height

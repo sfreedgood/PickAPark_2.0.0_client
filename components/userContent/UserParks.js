@@ -4,7 +4,7 @@ import Axios from "axios"
 import Config from '../../Config'
 
 const serverURL = Config.SERVER_HOST_URL
-const backgroundUrl = Config.BACKGROUND_URL
+const backgroundUrl = require('../../assets/background.jpg')
 
 export default class UserParks extends Component {
     state = {
@@ -55,22 +55,22 @@ export default class UserParks extends Component {
     renderUserParks = (parkData) => {
         const parkList = parkData.map((el, key) => {
             return (
-                <RN.View 
-                        style={styles.parkContainer}
-                        id={el.parkCode}
-                        key={key} >
-                    <RN.Text style={styles.parkName}>
-                        {el.name}
-                    </RN.Text>
-                    <RN.Button
-                        title={"Delete"}
-                        onPress={ () => this.deletePark(el.id) }
-                    />
-                    <RN.Text style={styles.parkDescription}>
-                        {el.description}
-                    </RN.Text>
-    
-                </RN.View>
+              <RN.View 
+                  style={styles.parkContainer}
+                  id={el.parkCode}
+                  key={key} >
+                <RN.Text style={styles.parkName}>
+                    {el.name}
+                </RN.Text>
+
+                <RN.Button
+                    title={"Delete"}
+                    onPress={ () => this.deletePark(el.id) } 
+                />
+                <RN.Text style={styles.parkDescription}>
+                    {el.description}
+                </RN.Text>
+              </RN.View>
             )
         })
         return parkList
@@ -80,7 +80,7 @@ export default class UserParks extends Component {
         return(
             <RN.SafeAreaView>
                 <RN.ImageBackground 
-                    source = {{uri: backgroundUrl}}
+                    source = {backgroundUrl}
                     style = {styles.backgroundImg} >
                     <RN.ScrollView>
                         {this.state.loaded && this.renderUserParks(this.state.data)}

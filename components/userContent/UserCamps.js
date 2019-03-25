@@ -4,7 +4,7 @@ import Axios from "axios"
 import Config from '../../Config'
 
 const serverURL = Config.SERVER_HOST_URL
-const backgroundUrl = Config.BACKGROUND_URL
+const backgroundUrl = require('../../assets/background.jpg')
 
 export default class UserCamps extends Component {
     state = {
@@ -97,7 +97,7 @@ export default class UserCamps extends Component {
         return(
             <RN.SafeAreaView>
                 <RN.ImageBackground 
-                    source = {{uri: backgroundUrl}}
+                    source = {backgroundUrl}
                     style = {styles.backgroundImg} >
                     <RN.ScrollView>
                         {this.state.loaded && this.renderUserCamps(this.state.data)}
