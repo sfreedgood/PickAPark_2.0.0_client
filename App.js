@@ -17,15 +17,15 @@ const MainNavigator = createSwitchNavigator({
       "SignUp": Signup
     })
   },
+  ParkDetail: ParkDetail,
+  Campgrounds: Campgrounds,
   UserHome: {
     screen: createBottomTabNavigator({
       "Home": Home,
       "My Parks": UserParks,
       "My Camps": UserCamps
     })
-  },
-  ParkDetail: ParkDetail,
-  Campgrounds: Campgrounds
+  }
 },
   {
     initialRouteName: "Landing"

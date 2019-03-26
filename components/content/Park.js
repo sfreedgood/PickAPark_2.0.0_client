@@ -35,7 +35,7 @@ const Park = (props) => {
 
 const styles = RN.StyleSheet.create({
   parkContainer: {
-    padding: 2,
+    padding: 5,
     backgroundColor: "rgba(200, 200, 200, 0.7)",
   },
   parkName: {

@@ -113,6 +113,7 @@ export default class ParkDetail extends Component {
         <RN.ImageBackground
           source = {backgroundUrl}
           style={styles.backgroundImg}>
+          <RN.ScrollView>
           <RN.View style={styles.container}>
             <RN.Text style={styles.name}>
               {this.state.name}
@@ -191,6 +192,7 @@ export default class ParkDetail extends Component {
             />   
 
           </RN.View>
+          </RN.ScrollView>
         </RN.ImageBackground>
       </RN.SafeAreaView>
     )
@@ -200,6 +202,9 @@ export default class ParkDetail extends Component {
 const styles = RN.StyleSheet.create({
   container: {
     backgroundColor: "rgba(200, 200, 200, 0.7)",
+    marginBottom: 20,
+    paddingLeft: 5,
+    paddingRight: 5,
   },
   button: {
     fontSize: 15,
