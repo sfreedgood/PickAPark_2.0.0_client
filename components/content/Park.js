@@ -28,7 +28,7 @@ const Park = (props) => {
 
   return (
     <RN.View>
-        {parkList}
+      {parkList}
     </RN.View>
   )
 }
