@@ -3,8 +3,8 @@ function loginStatus(bool) {
   return {type: LOGIN_STATUS, bool}
 }
 
-function setState(stateCode) {
-  return {type: SET_STATE, stateCode}
+function setStateCode(stateCode) {
+  return {type: SET_STATE_CODE, stateCode}
 }
 
 function setParkList(parkList) {
@@ -39,7 +39,7 @@ module.exports = {
   setCampList,
   setCurrentPark,
   setParkList,
-  setState,
+  setStateCode,
   setUserParks,
   setUserCamps,
   campsLoaded,
