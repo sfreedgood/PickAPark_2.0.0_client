@@ -1,12 +1,12 @@
 import {createSwitchNavigator, createBottomTabNavigator, createAppContainer} from 'react-navigation';
-import Landing from "./components/Landing"
-import Home from "./components/Home"
-import Login from "./components/auth/Login"
-import Signup from "./components/auth/Signup"
-import ParkDetail from "./components/content/ParkDetail"
-import Campgrounds from "./components/content/Campgrounds"
-import UserParks from './components/userContent/UserParks';
-import UserCamps from './components/userContent/UserCamps';
+import Landing from "./Landing"
+import Home from "./Home"
+import Login from "./auth/Login"
+import Signup from "./auth/Signup"
+import ParkDetail from "./content/ParkDetail"
+import Campgrounds from "./content/Campgrounds"
+import UserParks from './userContent/UserParks';
+import UserCamps from './userContent/UserCamps';
 
 const MainNavigator = createSwitchNavigator({
   Landing: Landing,

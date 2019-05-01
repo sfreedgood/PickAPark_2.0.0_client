@@ -1,10 +1,10 @@
 import React, { Component } from "react"
 import * as RN from "react-native"
 import Axios from "axios"
-import Config from '../../Config'
+import Config from '../../../Config'
 
 const serverURL = Config.SERVER_HOST_URL
-const backgroundUrl = require("../../assets/background.jpg")
+const backgroundUrl = require("../../../assets/background.jpg")
 
 export default class Login extends Component {
   constructor(props) {
@@ -31,7 +31,22 @@ export default class Login extends Component {
       await this.props.navigation.navigate('UserHome', {
           userId: this.state.userId
       })
+    } else {
+      console.log(res.data.message)
+      this.displayErrors(res.data.message)
     }
+  }
+
+  displayErrors = (errors) => {
+    let errorsToDisplay = null
+    if (Array.isArray(errors)) {
+      errorsToDisplay = errors.map(error => {
+        <RN.Text>{error}</RN.Text>
+      })
+    } else {
+      errorsToDisplay = <RN.Text>{errors}</RN.Text>
+    }
+    return errorsToDisplay
   }
 
   render() { 
@@ -57,6 +72,11 @@ export default class Login extends Component {
                 secureTextEntry={true}
                 onChangeText={(password) => this.setState({password})}
               />
+              
+              <RN.View>
+                {this.displayErrors}
+              </RN.View>
+              
               <RN.Text 
                 style={styles.submit}
                 onPress={this.handleSubmit}>

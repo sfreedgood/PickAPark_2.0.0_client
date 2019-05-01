@@ -2,12 +2,12 @@ import React from 'react';
 import * as RN from 'react-native';
 import Axios from "axios"
 import SearchableDropdown from 'react-native-searchable-dropdown';
-import StateList from '../assets/states'
+import StateList from '../../assets/states'
 import ParkList from "./content/ParkList"
-import Config from '../Config'
+import Config from '../../Config'
 
 const states = StateList
-const backgroundUrl = require("../assets/background.jpg")
+const backgroundUrl = require("../../assets/background.jpg")
 const apiKey = Config.API_KEY
 const urlBase = Config.URL_BASE
 const urlStateParks = Config.URL_STATE_PARKS

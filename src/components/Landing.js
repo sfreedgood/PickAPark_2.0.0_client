@@ -1,7 +1,7 @@
 import React from "react"
 import * as RN from "react-native"
  
-const backgroundUrl = require("../assets/background.jpg")
+const backgroundUrl = require("../../assets/background.jpg")
 
 const Landing = (props) => {
 

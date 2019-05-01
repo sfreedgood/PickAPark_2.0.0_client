@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import * as RN from "react-native"
 import Axios from "axios"
-import Config from '../../Config'
+import Config from '../../../Config'
 
 const serverURL = Config.SERVER_HOST_URL
 const backgroundUrl = Config.BACKGROUND_URL
