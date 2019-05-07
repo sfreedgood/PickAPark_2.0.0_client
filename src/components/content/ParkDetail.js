@@ -3,7 +3,7 @@ import * as RN from "react-native"
 import Axios from "axios"
 import Config from '../../../Config'
 
-const serverURL = Config.SERVER_HOST_URL
+const serverURL = Config.SERVER_HOST_URL || Config.LOCAL_HOST_URL
 const backgroundUrl = require("../../../assets/background.jpg")
 const apiKey = Config.API_KEY
 const urlBase = Config.URL_BASE

@@ -3,7 +3,7 @@ import * as RN from "react-native"
 import Axios from "axios"
 import Config from '../../../Config'
 
-const serverURL = Config.SERVER_HOST_URL
+const serverURL = Config.SERVER_HOST_URL || Config.LOCAL_HOST_URL
 const backgroundUrl = require("../../../assets/background.jpg")
 
 export default class Signup extends Component {
@@ -25,8 +25,32 @@ export default class Signup extends Component {
             password: this.state.password,
         }
         const res = await Axios.post(serverURL + '/signup', user)
-        res.status === 200 && this.setState({submitted: true})
+        console.log(res.status)
+        console.log(res.data)
+        if (res.status === 200) {
+          RN.Alert.alert(res.data.message)
+          this.props.navigation.navigate('Login')
+        } else {
+          await this.displayErrors(res.data.message)
+          await this.setState(prevState => ({
+            errors: true
+          }))
+        }
     }
+
+  displayErrors = (errors) => {
+    let errorsToDisplay = null
+    if (Array.isArray(errors)) {
+      errorsToDisplay = errors.map(error => {
+        <RN.Text style={styles.errorText}>{error}</RN.Text>
+      })
+    } else {
+      errorsToDisplay = <RN.Text style={styles.errorText}>{errors}</RN.Text>
+    }
+    this.setState(prevState => ({
+      errorsToDisplay
+    }))
+  }
 
     render() { 
       return ( 
@@ -38,6 +62,14 @@ export default class Signup extends Component {
               <RN.KeyboardAvoidingView
                 behavior="padding"
                 enabled >
+               
+              {
+                this.state.errors &&
+                  <RN.View style={styles.error}>
+                    {this.state.errorsToDisplay}
+                  </RN.View>
+              }
+              
               <RN.View style={styles.loginForm}>
                 <RN.TextInput
                   placeholder={"username"}
@@ -95,5 +127,15 @@ const styles = RN.StyleSheet.create({
       justifyContent: "center",
       width: RN.Dimensions.get("window").width,
       height: RN.Dimensions.get("window").height
+  },
+  error: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    backgroundColor: "rgba(255, 0, 0, 0.8)"
+  },
+  errorText: {
+    fontSize: 25,
+    fontWeight: "700",
   }
 })
