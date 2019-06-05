@@ -145,7 +145,7 @@ export default class Campgrounds extends Component {
                             this.state.data ?
                                 this.renderCampList() : 
                                 <RN.Text style={styles.noData}>
-                                    That information is not available at this time, we appologize for the inconenvience
+                                    That information is not available at this time, we apologize for the inconenvience
                                 </RN.Text>
                         }
                         <RN.Button
