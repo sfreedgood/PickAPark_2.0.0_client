@@ -4,6 +4,8 @@ import Axios from "axios"
 import Config from '../../../Config'
 
 const serverURL = Config.SERVER_HOST_URL || Config.LOCAL_HOST_URL
+console.log("TCL: serverURL", serverURL)
+
 const backgroundUrl = require("../../../assets/background.jpg")
 
 export default class Signup extends Component {
