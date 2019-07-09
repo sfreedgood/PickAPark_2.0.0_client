@@ -1,18 +1,28 @@
+//Dependencies
 import React from 'react';
 import * as RN from 'react-native';
 import Axios from "axios"
 import SearchableDropdown from 'react-native-searchable-dropdown';
-import StateList from '../../assets/states'
-import ParkList from "./content/ParkList"
-import Config from '../../Config'
 
+//Components
+import ParkList from "./content/ParkList"
+
+//Static Assets
+import StateList from '../../assets/states'
 const states = StateList
 const backgroundUrl = require("../../assets/background.jpg")
+
+//Configuration
+import Config from '../../Config'
 const apiKey = Config.API_KEY
 const urlBase = Config.URL_BASE
 const urlStateParks = Config.URL_STATE_PARKS
-
 const urlEnd = `&api_key=${apiKey}`
+
+//Redux
+import { connect } from "react-redux"
+import { setParkList, setStateCode, loginStatus } from "../redux/actionCreators"
+
 export default class Home extends React.Component {
   state = {
     loggedIn: false
@@ -82,21 +92,8 @@ export default class Home extends React.Component {
               onBlur={text => alert(text)}
               onItemSelect={item => this.handleSelect(item.id)}
               containerStyle={{ padding: 5 }}
-              textInputStyle={{
-                padding: 12,
-                borderWidth: 1,
-                borderColor: '#ccc',
-                backgroundColor: "rgba(200, 200, 200, 0.3)",
-                borderRadius: 5,
-              }}
-              itemStyle={{
-                padding: 10,
-                marginTop: 2,
-                backgroundColor: '#ddd',
-                borderColor: '#bbb',
-                borderWidth: 1,
-                borderRadius: 5,
-              }}
+              textInputStyle={styles.textInputStyle}
+              itemStyle={styles.itemStyle}
               itemTextStyle={{ color: '#222' }}
               itemsContainerStyle={{ maxHeight: 200 }}
               items={states}
@@ -113,6 +110,7 @@ export default class Home extends React.Component {
   }
 }
 
+//Styling
 const styles = RN.StyleSheet.create({
   title: {
     fontSize: 50,
@@ -132,5 +130,20 @@ const styles = RN.StyleSheet.create({
   logout: {
     alignItems: "center",
     justifyContent: "flex-end"
+  },
+  itemStyle: {
+    padding: 10,
+    marginTop: 2,
+    backgroundColor: '#ddd',
+    borderColor: '#bbb',
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  textInputStyle: {
+    padding: 12,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    backgroundColor: "rgba(200, 200, 200, 0.3)",
+    borderRadius: 5,
   }
 })
