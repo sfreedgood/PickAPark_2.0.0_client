@@ -3,7 +3,7 @@ import * as RN from "react-native"
 import Park from "./Park"
 
 const ParkList = (props) => {
-
+  // console.log(props)
     return(
         <RN.SafeAreaView style={{flex: 1}}>
 

@@ -21,27 +21,27 @@ const urlEnd = `&api_key=${apiKey}`
 
 //Redux
 import { connect } from "react-redux"
-import { setParkList, setStateCode, loginStatus } from "../redux/actionCreators"
 
-export default class Home extends React.Component {
-  state = {
-    loggedIn: false
-  }
+class Home extends React.Component {
+  // state = {
+  //   loggedIn: false
+  // }
 
   componentDidMount = async () => {
     const nonsense = await RN.AsyncStorage.multiGet(['token', 'userId'])
     const token = nonsense[0][1]
     if (token) {
-      this.setState({
-        loggedIn: true
-      })
+      this.props.loginStatus(true) // Redux-store equivalent to line 36
+      // this.setState({loggedIn: true}) 
     }
   }
 
   handleSelect = (stateCode) => {
-    this.setState(prevState => ({
-      selectedState: stateCode
-    }))
+    console.log(stateCode)
+    this.props.setStateCode(stateCode)
+    // this.setState(prevState => ({
+    //   selectedState: stateCode
+    // }))
     this.loadData(stateCode)
   }
 
@@ -49,15 +49,17 @@ export default class Home extends React.Component {
     const res = await Axios(urlBase + urlStateParks + stateCode + urlEnd)
     if (res.status === 200) {
       const parkList = res.data.data
-      this.setState(prevState => ({
-        stateParks: parkList
-      }))
+      this.props.setParkList(parkList)
+      // this.setState(prevState => ({
+      //   stateParks: parkList
+      // }))
     } else {
       const response = await Axios.get('/parks/')
       const parkList = response.data
-      this.setState(prevState => ({
-        stateParks: parkList
-      }))
+      this.props.setParkList(parkList)
+      // this.setState(prevState => ({
+      //   stateParks: parkList
+      // }))
     }
   }
 
@@ -72,6 +74,7 @@ export default class Home extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <RN.SafeAreaView style={{flex: 1 }}>
         <RN.ImageBackground 
@@ -82,7 +85,7 @@ export default class Home extends React.Component {
             Select A State
           </RN.Text>
           {
-            this.state.loggedIn &&
+            this.props.loggedIn &&
             <RN.Button
                 style={styles.logout}
                 title={"Logout"}
@@ -102,7 +105,7 @@ export default class Home extends React.Component {
               resetValue={false}
               underlineColorAndroid="transparent" />
           <ParkList 
-              parks={this.state.stateParks}
+              parks={this.props.parks.parkList}
               navigation={this.props.navigation}/>
         </RN.ImageBackground>
       </RN.SafeAreaView>
@@ -147,3 +150,24 @@ const styles = RN.StyleSheet.create({
     borderRadius: 5,
   }
 })
+
+function mapStateToProps (state) {
+  const { parks, camps, userData } = state
+  console.log(parks)
+  return { parks, camps, userData }
+};
+
+function mapDispatchToProps (dispatch) { //list of action-creators to be dispatched
+  return {
+    setParkList: (parkList) => dispatch({type: "SET_PARK_LIST", payload: {parkList}}), 
+    setStateCode: (stateCode) => dispatch({type: "SET_STATE_CODE", payload: {stateCode}}),
+    loginStatus: (loginStatus) => dispatch({type: "LOGIN_STATUS", payload: {bool: loginStatus}}),
+  }
+}
+
+export default connect(
+  // null,
+  mapStateToProps,
+  // null
+  mapDispatchToProps
+)(Home) //component goes here

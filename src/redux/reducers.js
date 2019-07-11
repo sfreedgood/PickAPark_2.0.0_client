@@ -1,37 +1,100 @@
-import * as AC from "./actionCreators" // AC abbr for ActionCreator
+// import * as AC from "./actionCreators" // AC abbr for ActionCreator
 import * as AT from "./actionTypes" // AT abbr for ActionType
+import { combineReducers } from "redux"
 
-const initialState = {
-  [AC.loginStatus]: false,
+const initialParkState = {
+  stateCode: "",
+  parksLoaded: false,
+  parkList: [],
+  currentPark: ""
 }
 
-function pickAPark(state, action) {
-  if (typeof state === 'undefined') {
-    return initialState
-  }
+const initialCampState = {
+  campsLoaded: false,
+  campList: []
+}
 
+const initialUserState = {
+  loginStatus: false,
+  userParkList: [],
+  userCampList: [],
+}
+
+const parks = (state = initialParkState, action) => {
   switch(action.type) {
-    case AT.LOGIN_STATUS:
-      return {...state, loginStatus: action.bool}
-    case AT.CAMPS_LOADED:
-      return {...state, campsLoaded: action.bool}
-    case AT.PARKS_LOADED:
-      return {...state, parksLoaded: action.bool}
-    case AT.SET_CAMP_LIST:
-      return {...state, setCampList: action.campList}
-    case AT.SET_PARK_LIST:
-      return {...state, setParkList: action.parkList}
     case AT.SET_STATE_CODE:
-      return {...state, setStateCode: action.stateCode}
-    case AT.SET_USER_CAMPS:
-      return {...state, setUserCamps: action.userCampList}
-    case AT.SET_USER_PARKS:
-      return {...state, setUserParks: action.userParkList}
+      const { stateCode } = action.payload
+        return {
+          ...state,
+          stateCode: stateCode
+        }
+    case AT.PARKS_LOADED:
+      const { bool } = action.payload
+      return {
+        ...state,
+        parksLoaded: bool
+      }
+    case AT.SET_PARK_LIST:
+      const { parkList } = action.payload
+      console.log(parkList)
+      return {
+        ...state,
+        parkList: parkList}
     case AT.SET_CURRENT_PARK:
-      return {...state, currentPark: action.currentPark}
+      const { currentPark } = action.payload
+      return {
+        ...state,
+        currentPark: currentPark
+      }
     default:
       return state
   }
 }
 
-export default pickAPark
+const camps = (state = initialCampState, action) => {
+  switch(action.type) {
+    case AT.CAMPS_LOADED:
+      const { bool } = action.payload
+      return {
+        ...state,
+        campsLoaded: bool}
+    case AT.SET_CAMP_LIST:
+      const { campList } = action.payload
+      return {
+        ...state,
+        campList: campList}
+    default:
+      return state
+  }
+}
+
+const userData = (state = initialUserState, action) => {
+  switch(action.type) {
+    case AT.LOGIN_STATUS:
+      const { bool } = action.payload
+      return {
+        ...state,
+        loginStatus: bool}
+    case AT.SET_USER_CAMPS:
+      const { userCampList } = action.payload
+      return {
+        ...state,
+        userCampList: userCampList
+        }
+    case AT.SET_USER_PARKS:
+      const {userParkList} = action.payload
+      return {
+        ...state,
+        userParkList: userParkList
+      }
+    default:
+      return state
+  }
+
+}
+
+export default combineReducers({
+  parks: parks,
+  camps: camps,
+  userData: userData
+})
