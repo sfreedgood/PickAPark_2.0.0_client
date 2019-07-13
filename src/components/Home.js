@@ -22,16 +22,26 @@ const urlEnd = `&api_key=${apiKey}`
 //Redux
 import { connect } from "react-redux"
 
-class Home extends React.Component {
-  // state = {
-  //   loggedIn: false
-  // }
+function mapStateToProps (state) {
+  const { parks, camps, userData } = state
+  return { parks, camps, userData }
+};
 
+function mapDispatchToProps (dispatch) { //list of action-creators to be dispatched
+  return {
+    setParkList: (parkList) => dispatch({type: "SET_PARK_LIST", payload: {parkList}}), 
+    setStateCode: (stateCode) => dispatch({type: "SET_STATE_CODE", payload: {stateCode}}),
+    loginStatus: (loginStatus) => dispatch({type: "LOGIN_STATUS", payload: {bool: loginStatus}}),
+  }
+}
+
+//Component
+class Home extends React.Component {
   componentDidMount = async () => {
     const nonsense = await RN.AsyncStorage.multiGet(['token', 'userId'])
     const token = nonsense[0][1]
     if (token) {
-      this.props.loginStatus(true) // Redux-store equivalent to line 36
+      this.props.loginStatus(true) // Redux-store equivalent to line below (after setup)
       // this.setState({loggedIn: true}) 
     }
   }
@@ -39,9 +49,6 @@ class Home extends React.Component {
   handleSelect = (stateCode) => {
     console.log(stateCode)
     this.props.setStateCode(stateCode)
-    // this.setState(prevState => ({
-    //   selectedState: stateCode
-    // }))
     this.loadData(stateCode)
   }
 
@@ -50,16 +57,10 @@ class Home extends React.Component {
     if (res.status === 200) {
       const parkList = res.data.data
       this.props.setParkList(parkList)
-      // this.setState(prevState => ({
-      //   stateParks: parkList
-      // }))
     } else {
       const response = await Axios.get('/parks/')
       const parkList = response.data
       this.props.setParkList(parkList)
-      // this.setState(prevState => ({
-      //   stateParks: parkList
-      // }))
     }
   }
 
@@ -74,7 +75,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <RN.SafeAreaView style={{flex: 1 }}>
         <RN.ImageBackground 
@@ -151,23 +151,7 @@ const styles = RN.StyleSheet.create({
   }
 })
 
-function mapStateToProps (state) {
-  const { parks, camps, userData } = state
-  console.log(parks)
-  return { parks, camps, userData }
-};
-
-function mapDispatchToProps (dispatch) { //list of action-creators to be dispatched
-  return {
-    setParkList: (parkList) => dispatch({type: "SET_PARK_LIST", payload: {parkList}}), 
-    setStateCode: (stateCode) => dispatch({type: "SET_STATE_CODE", payload: {stateCode}}),
-    loginStatus: (loginStatus) => dispatch({type: "LOGIN_STATUS", payload: {bool: loginStatus}}),
-  }
-}
-
 export default connect(
-  // null,
   mapStateToProps,
-  // null
   mapDispatchToProps
 )(Home) //component goes here

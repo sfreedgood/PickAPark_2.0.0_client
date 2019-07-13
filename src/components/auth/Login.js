@@ -1,11 +1,15 @@
+//Dependencies
 import React, { Component } from "react"
 import * as RN from "react-native"
 import Axios from "axios"
+//Configuration
 import Config from '../../../Config'
-
 const serverURL = Config.SERVER_HOST_URL || Config.LOCAL_HOST_URL
+
+//Static Assets
 const backgroundUrl = require("../../../assets/background.jpg")
 
+//Component
 export default class Login extends Component {
   constructor(props) {
     super(props);

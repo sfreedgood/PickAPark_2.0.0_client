@@ -1,34 +1,51 @@
+//Dependencies
 import React, { Component } from "react"
 import * as RN from "react-native"
 import Axios from "axios"
-import Config from '../../../Config'
 
+//Configuration
+import Config from '../../../Config'
 const serverURL = Config.SERVER_HOST_URL || Config.LOCAL_HOST_URL
 const backgroundUrl = Config.BACKGROUND_URL
 const apiKey = Config.API_KEY
 const urlBase = Config.URL_BASE
 const urlCampsEndpoint = Config.URL_CAMPS_ENDPOINT
-
 const urlEnd = `&api_key=${apiKey}`
 
-export default class Campgrounds extends Component {
-    state = { 
-        data: false,
-        campList: []
-    }
+//Redux
+import { connect } from "react-redux"
 
-    componentDidMount = async () => {
-        const parkCode = this.props.navigation.getParam('parkCode', 'no-code')
-        const res = await Axios(urlBase + urlCampsEndpoint + parkCode + urlEnd)
+function mapStateToProps (state) {
+  const { parks, camps, userData } = state
+  return { parks, camps, userData }
+};
 
-        //checks session status and sets state to conditionally render user actions
-        this.isLoggedIn()
+function mapDispatchToProps (dispatch) { //list of action-creators to be dispatched
+  return {
+    setParkList: (parkList) => dispatch({type: "SET_PARK_LIST", payload: {parkList}}), 
+    setStateCode: (stateCode) => dispatch({type: "SET_STATE_CODE", payload: {stateCode}}),
+    loginStatus: (loginStatus) => dispatch({type: "LOGIN_STATUS", payload: {bool: loginStatus}}),
+  }
+}
 
-        this.setState({
-            campList: res.data,
-            data: true
-        })
-    }
+//Component
+class Campgrounds extends Component {
+  state = { 
+    data: false,
+    campList: []
+  }
+
+  componentDidMount = async () => {
+    const parkCode = this.props.navigation.getParam('parkCode', 'no-code')
+    const res = await Axios(urlBase + urlCampsEndpoint + parkCode + urlEnd)
+    //checks session status and sets state to conditionally render user actions
+    this.isLoggedIn()
+
+    this.setState({
+      campList: res.data,
+      data: true
+    })
+  }
 
     handleSave = async (id) => {
         let camp = this.filterCampById(id)
@@ -184,3 +201,8 @@ const styles = RN.StyleSheet.create({
         height: RN.Dimensions.get("window").height
     }
 })
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Campgrounds) //component goes here

@@ -1,19 +1,20 @@
+//Dependencies
 import React, { Component } from "react"
 import * as RN from "react-native"
 import Axios from "axios"
-import Config from '../../../Config'
 
+//Configuration
+import Config from '../../../Config'
 const serverURL = Config.SERVER_HOST_URL || Config.LOCAL_HOST_URL
 const backgroundUrl = require("../../../assets/background.jpg")
 const apiKey = Config.API_KEY
 const urlBase = Config.URL_BASE
 const urlCampsEndpoint = Config.URL_CAMPS_ENDPOINT
 const urlParksEndpoint = Config.URL_PARKS_ENDPOINT
-
 const urlEnd = `&api_key=${apiKey}`
 
 export default class ParkDetail extends Component {
-  state ={
+  state = {
     name: "",
     designation: "",
     description: "",
