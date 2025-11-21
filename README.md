@@ -4,9 +4,10 @@
 
 ## To view the project, visit my page at:
 https://samfreedgood.dev/
-or go directly there:
+
+~or go directly there:
 https://expo.io/@sfreedgood12/pickapark
- (please note that recent changes to iOS services have made this deployment only available to Android users, will update with a link to an iOS deployment as soon as it is available.)
+ (please note that recent changes to iOS services have made this deployment only available to Android users, will update with a link to an iOS deployment as soon as it is available.)~
 
 ## Technologies used:
 - React Native
